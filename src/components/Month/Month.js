@@ -30,11 +30,20 @@ class Month extends Component {
     };
 
     render() {
-        const {monthName, countUsers} = this.props;
+        const {monthName, countUsers, monthIndex, selectedMonthIndex} = this.props;
+        console.log(this.props);
+        const selectedStyles = monthIndex === selectedMonthIndex ? {
+            backgroundColor: '#fff',
+            color: '#222',
+            borderBottomWidth: 2,
+            borderBottomStyle: 'solid',
+            borderBottomColor: '#da314b',
+        } : {};
         return (
             <button
                 className={`uk-button ${this.getClassName(countUsers)}`}
                 onMouseOver={this.doFilter}
+                style={selectedStyles}
             >
                 {monthName}
             </button>

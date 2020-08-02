@@ -23,7 +23,6 @@ export default class App extends Component {
                 {monthIndex: 11, monthName: 'December', countUsers: 0}
             ],
             selectedMonthIndex: null,
-            loaded: false,
             error: null
         }
     }
@@ -40,14 +39,14 @@ export default class App extends Component {
                 });
                 this.setState({users});
                 this.setState({months});
-                this.setState({loaded: true});
             })
             .catch((error) => {
                 this.setState({error});
             })
     }
+
     onSelectedMonthIndexChange = (monthIndex) => {
-        this.setState({ selectedMonthIndex: monthIndex})
+        this.setState({selectedMonthIndex: monthIndex})
     };
 
     getUsersByMonth(users, month) {
@@ -57,18 +56,31 @@ export default class App extends Component {
     }
 
     render() {
-        const {users, months, selectedMonthIndex, loaded} = this.state;
+        const {users, months, selectedMonthIndex} = this.state;
+        const selectedMonth = months.find(m => m.monthIndex === selectedMonthIndex);
         const usersList = users.filter((user) => {
-            if(selectedMonthIndex === null){
+            if (selectedMonthIndex === null) {
                 return true;
             }
             return Number(new Date(user.dob).getMonth() === selectedMonthIndex);
         });
         return (
-            <div className="wrapper">
-                <MonthsList months={months} doFilter={this.onSelectedMonthIndexChange}></MonthsList>
-                <UserList users={usersList}></UserList>
-            </div>
+            <section className="uk-section uk-section-small uk-section-default uk-margin-top">
+                <div className="uk-container uk-container-expand uk-margin-large-bottom">
+                    <MonthsList months={months}
+                                selectedMonthIndex={selectedMonthIndex}
+                                doFilter={this.onSelectedMonthIndexChange}/>
+                    <h1>
+                        {
+                            selectedMonthIndex === null ?
+                                'All users' :
+                                `Users who have a birthday in ${selectedMonth.monthName}`
+                        }
+                    </h1>
+                    <UserList users={usersList}/>
+                </div>
+            </section>
+
         )
     }
 }
