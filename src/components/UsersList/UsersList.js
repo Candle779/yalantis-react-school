@@ -3,12 +3,17 @@ import User from "../User";
 
 const UserList = ({users}) => {
     return (
-        users.map(user => {
-            return (
-                <User key={user.id} {...user}/>
-            )
-        })
-
+        <ul className="uk-comment-list">
+            {
+                users.map(user => {
+                    return (
+                        <li key={user.id}>
+                            <User  {...user}/>
+                        </li>
+                    )
+                })
+            }
+        </ul>
     )
 }
 export default UserList;

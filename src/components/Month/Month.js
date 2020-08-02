@@ -25,10 +25,19 @@ class Month extends Component {
         }
     }
 
+    doFilter = () => {
+        this.props.doFilter();
+    };
+
     render() {
         const {monthName, countUsers} = this.props;
         return (
-            <button className={`uk-button ${this.getClassName(countUsers)}`}>{monthName}</button>
+            <button
+                className={`uk-button ${this.getClassName(countUsers)}`}
+                onMouseOver={this.doFilter}
+            >
+                {monthName}
+            </button>
         )
     }
 }

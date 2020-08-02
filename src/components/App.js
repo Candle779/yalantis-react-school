@@ -22,7 +22,7 @@ export default class App extends Component {
                 {monthIndex: 10, monthName: 'November', countUsers: 0},
                 {monthIndex: 11, monthName: 'December', countUsers: 0}
             ],
-            selectedMonth: null,
+            selectedMonthIndex: null,
             loaded: false,
             error: null
         }
@@ -46,6 +46,9 @@ export default class App extends Component {
                 this.setState({error});
             })
     }
+    onSelectedMonthIndexChange = (monthIndex) => {
+        this.setState({ selectedMonthIndex: monthIndex})
+    };
 
     getUsersByMonth(users, month) {
         return users.filter(user => {
@@ -54,11 +57,17 @@ export default class App extends Component {
     }
 
     render() {
-        const {users, months} = this.state;
+        const {users, months, selectedMonthIndex, loaded} = this.state;
+        const usersList = users.filter((user) => {
+            if(selectedMonthIndex === null){
+                return true;
+            }
+            return Number(new Date(user.dob).getMonth() === selectedMonthIndex);
+        });
         return (
             <div className="wrapper">
-                <MonthsList months={months}></MonthsList>
-                <UserList users={users}></UserList>
+                <MonthsList months={months} doFilter={this.onSelectedMonthIndexChange}></MonthsList>
+                <UserList users={usersList}></UserList>
             </div>
         )
     }
