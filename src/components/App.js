@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import ApiService from "../services/api";
+import UserList from "../components/UsersList";
 
 export default class App extends Component {
     constructor(props) {
@@ -17,11 +18,11 @@ export default class App extends Component {
     }
 
     render() {
+        const {users} = this.state;
         return (
             <div className="wrapper">
-                Yalantis
+                <UserList users={users}></UserList>
             </div>
         )
-
     }
 }
