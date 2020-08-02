@@ -31,7 +31,6 @@ class Month extends Component {
 
     render() {
         const {monthName, countUsers, monthIndex, selectedMonthIndex} = this.props;
-        console.log(this.props);
         const selectedStyles = monthIndex === selectedMonthIndex ? {
             backgroundColor: '#fff',
             color: '#222',
