@@ -9,10 +9,10 @@ class Month extends Component {
     }
 
     render() {
-        const {monthName} = this.props;
+        const {monthName, countUsers} = this.props;
         return (
             <div>
-                {monthName}
+                {monthName} {countUsers}
             </div>
         )
     }

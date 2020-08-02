@@ -9,29 +9,48 @@ export default class App extends Component {
         this.state = {
             users: [],
             months: [
-                {monthIndex: 0, monthName: 'January'},
-                {monthIndex: 1, monthName: 'February'},
-                {monthIndex: 2, monthName: 'March'},
-                {monthIndex: 3, monthName: 'April'},
-                {monthIndex: 4, monthName: 'May'},
-                {monthIndex: 5, monthName: 'June'},
-                {monthIndex: 6, monthName: 'July'},
-                {monthIndex: 7, monthName: 'August'},
-                {monthIndex: 8, monthName: 'September'},
-                {monthIndex: 9, monthName: 'October'},
-                {monthIndex: 10, monthName: 'November'},
-                {monthIndex: 11, monthName: 'December'}
+                {monthIndex: 0, monthName: 'January', countUsers: 0},
+                {monthIndex: 1, monthName: 'February', countUsers: 0},
+                {monthIndex: 2, monthName: 'March', countUsers: 0},
+                {monthIndex: 3, monthName: 'April', countUsers: 0},
+                {monthIndex: 4, monthName: 'May', countUsers: 0},
+                {monthIndex: 5, monthName: 'June', countUsers: 0},
+                {monthIndex: 6, monthName: 'July', countUsers: 0},
+                {monthIndex: 7, monthName: 'August', countUsers: 0},
+                {monthIndex: 8, monthName: 'September', countUsers: 0},
+                {monthIndex: 9, monthName: 'October', countUsers: 0},
+                {monthIndex: 10, monthName: 'November', countUsers: 0},
+                {monthIndex: 11, monthName: 'December', countUsers: 0}
             ],
             selectedMonth: null,
-            loaded: false
+            loaded: false,
+            error: null
         }
     }
 
     componentDidMount() {
         ApiService.getUsers()
-            .then(response => {
-                this.setState({users: response})
+            .then(res => {
+                const users = res.map(user => {
+                    return {...user};
+                })
+                const months = this.state.months.map(month => {
+                    const countUsers = this.getUsersByMonth(users, month);
+                    return {...month, countUsers};
+                });
+                this.setState({users});
+                this.setState({months});
+                this.setState({loaded: true});
             })
+            .catch((error) => {
+                this.setState({error});
+            })
+    }
+
+    getUsersByMonth(users, month) {
+        return users.filter(user => {
+            return new Date(user.dob).getMonth() === month.monthIndex;
+        }).length;
     }
 
     render() {
