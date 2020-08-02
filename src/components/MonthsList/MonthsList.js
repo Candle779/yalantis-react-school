@@ -4,12 +4,14 @@ import Month from "../Month";
 const MonthsList = (props) => {
     const {months} = props;
     return (
-        <div className="months">
-            {
-                months.map(month => {
-                    return <Month key={month.monthIndex} {...month}/>
-                })
-            }
+        <div className="uk-margin-small">
+            <div className="uk-button-group">
+                {
+                    months.map(month => {
+                        return <Month key={month.monthIndex} {...month}/>
+                    })
+                }
+            </div>
         </div>
     )
 }
