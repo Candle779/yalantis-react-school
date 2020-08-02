@@ -1,4 +1,5 @@
 import React from 'react';
+import Month from "../Month";
 
 const MonthsList = (props) => {
     const {months} = props;
@@ -6,10 +7,9 @@ const MonthsList = (props) => {
         <div className="months">
             {
                 months.map(month => {
-                    return month.monthName;
+                    return <Month key={month.monthIndex} {...month}/>
                 })
             }
-
         </div>
     )
 }

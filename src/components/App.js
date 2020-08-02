@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import ApiService from "../services/api";
 import UserList from "../components/UsersList";
-import MonthsList from "./MonthsList/MonthsList";
+import MonthsList from "../components/MonthsList";
 
 export default class App extends Component {
     constructor(props) {
@@ -21,8 +21,9 @@ export default class App extends Component {
                 {monthIndex: 9, monthName: 'October'},
                 {monthIndex: 10, monthName: 'November'},
                 {monthIndex: 11, monthName: 'December'}
-            ]
-
+            ],
+            selectedMonth: null,
+            loaded: false
         }
     }
 
