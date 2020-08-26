@@ -1,4 +1,4 @@
-## Тестове завдання для Yalantis React.js School (online)
+## Yalantis React.js project
 
 ### Tech Stack: React/Angular/Vue + Axios/Fetch
 Задача: 
